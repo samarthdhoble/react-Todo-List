@@ -1,94 +1,81 @@
-import { useState } from "react"
-import {v4 as uuidv4} from 'uuid';
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-export default function TodoList(){
+export default function TodoList() {
+  const [todos, setTodos] = useState([
+    { task: "Sample Task", id: uuidv4(), isDone: false },
+  ]);
+  const [newTodo, setNewTodo] = useState("");
 
-  let [todos , setTodos] = useState([{task : 'sample Task' , id : uuidv4() , isDone : false}])
-  let [newTodo , setNewTodo] = useState("")
-
-  let addNewTask = () => {
-    setTodos((prvTodo)=>{
-      return [...prvTodo , {
-        task : newTodo ,
-        id : uuidv4(),
-        isDone : false
-      }]
-    })
-  }
-
-  let updateTodoValue = (event)=>{
-    setNewTodo(event.target.value);
-  }
-
-
-  let deleteTodo = (id)=>{
-    setTodos((prvTodo)=>todos.filter((prvTodo)=>prvTodo.id!=id))
-  } 
-
-
-  let markAllDone = ()=>{
-     setTodos((todos) => todos.map((todo)=>{
-      return {
-        ...todo,
-        task : todo.task.toUpperCase(),
-        isDone : true
-      }
-     })
-    );
+  const addNewTask = () => {
+    setTodos((prev) => [
+      ...prev,
+      { task: newTodo, id: uuidv4(), isDone: false },
+    ]);
+    setNewTodo("");
   };
 
-  let markAsDone = (id)=> {
-    setTodos((todos) => todos.map((todo)=>{
+  const updateTodoValue = (event) => setNewTodo(event.target.value);
 
-      console.log(todo.isDone)
-      if(todo.id === id){
-        return {
-          ...todo,
-          isDone : todo.isDone = true,
-          task : todo.task.toUpperCase()
-          
-        }
-      } else {
-        return todo;
-      }
-     })
+  const deleteTodo = (id) =>
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+
+  const markAllDone = () =>
+    setTodos((todos) =>
+      todos.map((todo) => ({
+        ...todo,
+        task: todo.task.toUpperCase(),
+        isDone: true,
+      }))
     );
-  }
+
+  const markAsDone = (id) =>
+    setTodos((todos) =>
+      todos.map((todo) =>
+        todo.id === id
+          ? { ...todo, isDone: true, task: todo.task.toUpperCase() }
+          : todo
+      )
+    );
 
   return (
     <div className="todo-container">
-      <input
-        type="text"
-        placeholder="Add a task!!"
-        value={newTodo}
-        onChange={updateTodoValue}
-        className="todo-input"
-      />
-      <br /><br />
-      <button onClick={addNewTask} className="add-btn">Add Task</button>
-      <hr className="divider" />
-      <h4 className="task-heading">Tasks To Do!</h4>
+      <h2 className="main-title">📝 Todo List</h2>
+      <div className="input-section">
+        <input
+          type="text"
+          placeholder="What's next?"
+          value={newTodo}
+          onChange={updateTodoValue}
+          className="todo-input"
+        />
+        <button onClick={addNewTask} className="btn primary">
+          ➕ Add
+        </button>
+        <button onClick={markAllDone} className="btn success">
+          ✅ All Done
+        </button>
+      </div>
+
       <ul className="todo-list">
-        {
-          todos.map((todo)=>(
-            <li key={todo.id} className="todo-item">
-              <span>
-
-                <p style={todo.isDone ? {textDecorationLine : "line-through"} : {}}>
-                  {todo.task}&nbsp;
-                </p>
-                
-                <button onClick={() =>markAsDone(todo.id)}>complete</button>
-                <button onClick={()=> deleteTodo(todo.id)}>Delete</button>
-              </span>
-            </li>
-          ))
-        }
+        {todos.map((todo) => (
+          <li key={todo.id} className="todo-item">
+            <span
+              className={`task-text ${todo.isDone ? "done" : ""}`}
+            >
+              {todo.task}
+            </span>
+            <div className="btn-group">
+              <button onClick={() => markAsDone(todo.id)} className="btn warning">
+                ✔️ Complete
+              </button>
+              <button onClick={() => deleteTodo(todo.id)} className="btn danger">
+                🗑️ Delete
+              </button>
+            </div>
+          </li>
+        ))}
       </ul>
-
-      <button onClick={markAllDone}>All done</button>
     </div>
-
-    
-  )
+  );
 }

@@ -1,103 +1,133 @@
-/* Existing styles */
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Premium Reset */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: #f3f4f6;
+  color: #222;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* New styles for TodoList */
+/* Main Container */
 .todo-container {
-  background-color: #f9f9f9;
+  background: white;
   padding: 2rem;
-  margin: 2rem auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+  margin: 3rem auto;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 90%;
+  transition: 0.3s ease;
+}
+
+.main-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #374151;
+}
+
+/* Input Section */
+.input-section {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .todo-input {
-  width: 80%;
-  padding: 10px;
-  border: 1px solid #ccc;
+  flex: 1 1 60%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 16px;
+  transition: border-color 0.2s;
 }
 
-.add-btn {
-  margin-top: 1rem;
-  padding: 10px 20px;
-  background-color: #646cff;
-  color: white;
-  border: none;
+.todo-input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.6rem 1rem;
   border-radius: 8px;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  border: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
-.add-btn:hover {
-  background-color: #4c4fd4;
+.btn.primary {
+  background: #6366f1;
+  color: white;
+}
+.btn.primary:hover {
+  background: #4f46e5;
 }
 
-.divider {
-  margin: 2rem 0;
+.btn.success {
+  background: #10b981;
+  color: white;
+}
+.btn.success:hover {
+  background: #059669;
 }
 
-.task-heading {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 1rem;
+.btn.warning {
+  background: #facc15;
+  color: #111827;
+}
+.btn.warning:hover {
+  background: #eab308;
 }
 
+.btn.danger {
+  background: #ef4444;
+  color: white;
+}
+.btn.danger:hover {
+  background: #dc2626;
+}
+
+/* Task List */
 .todo-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .todo-item {
-  background-color: #ffffff;
-  margin: 0.5rem auto;
-  padding: 10px 15px;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(100, 108, 255, 0.1);
-  max-width: 400px;
-  color: #444;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.todo-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.task-text {
+  font-size: 16px;
   font-weight: 500;
+}
+
+.task-text.done {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+/* Button Group inside each task */
+.btn-group {
+  display: flex;
+  gap: 0.5rem;
 }
